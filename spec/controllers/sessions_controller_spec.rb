@@ -41,4 +41,30 @@ describe V1::SessionsController do
       end
     end
   end
+
+  describe 'POST /v1/signout' do
+    context 'when a user successfully sign out' do
+      let(:user) { create(:user)  }
+      before {
+        post :destroy, {
+          api_token: user.api_token
+        }
+      }
+
+      it { expect(response.code).to be == '200' }
+      it { expect(assigns(:user).api_token).not_to be == user.api_token }
+      it { expect(assigns(:user).api_token).to be nil                   }
+    end
+
+    context 'when a user can not successfully sign out' do
+      let(:user) { create(:user) }
+      before {
+        post :destroy, {
+          api_token: 'invalid api_token'
+        }
+      }
+
+      it { expect(response.code).to be == '400' }
+    end
+  end
 end

@@ -53,7 +53,7 @@ describe User do
           create(:user, email: 'test@example.com')
         }
 
-        it { p subject; expect(subject.email).to be == 'test@example.com' }
+        it { expect(subject.email).to be == 'test@example.com' }
       end
 
       context 'when email consists of upper-case letters' do
