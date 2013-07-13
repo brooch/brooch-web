@@ -12,3 +12,11 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'mysql2'
 gem 'thin'
+gem 'bcrypt-ruby', '~> 3.0.0'
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'database_cleaner'
+end
