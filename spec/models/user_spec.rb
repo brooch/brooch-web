@@ -53,7 +53,7 @@ describe User do
           create(:user, email: 'test@example.com')
         }
 
-        it { expect(subject.email).to be == 'test@example.com' }
+        it { p subject; expect(subject.email).to be == 'test@example.com' }
       end
 
       context 'when email consists of upper-case letters' do
@@ -88,6 +88,38 @@ describe User do
         context 'valid string' do
           subject {
             build(:user, email: 'test@example.com')
+          }
+
+          it { should be_valid }
+        end
+      end
+    end
+  end
+
+  describe 'password' do
+    context 'validation' do
+      context 'when invalid' do
+        context 'not same' do
+          subject {
+            build(:user, password_confirmation: 'not same password')
+          }
+
+          it { should be_invalid }
+        end
+
+        context 'too short' do
+          subject {
+            build(:user, password: 'foo', password_confirmation: 'foo')
+          }
+
+          it { should be_invalid }
+        end
+      end
+
+      context 'valid' do
+        context 'same password' do
+          subject {
+            build(:user, password: 'password', password_confirmation: 'password')
           }
 
           it { should be_valid }
