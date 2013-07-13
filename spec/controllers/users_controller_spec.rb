@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe V1::UsersController do
-  describe 'POST /users' do
+  describe 'POST /v1/users' do
     context 'when a user is successfully created' do
       before {
         user = build(:user)
