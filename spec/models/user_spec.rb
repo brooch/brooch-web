@@ -32,6 +32,15 @@ describe User do
 
           it { should be_invalid }
         end
+
+        context 'duplicated' do
+          subject {
+            user = create(:user)
+            build(:user, name: user.name)
+          }
+
+          it { should be_invalid }
+        end
       end
 
       context 'valid' do
@@ -78,6 +87,15 @@ describe User do
         context 'invalid string' do
           subject {
             build(:user, email: 'invalid email string')
+          }
+
+          it { should be_invalid }
+        end
+
+        context 'duplicated' do
+          subject {
+            user = create(:user)
+            build(:user, email: user.email)
           }
 
           it { should be_invalid }
