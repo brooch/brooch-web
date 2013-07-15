@@ -1,7 +1,8 @@
 module V1
   class SessionsController < ApplicationController
     def create
-      @user = User.find_by(email: params[:email])
+      @user = User.find_by_email(params[:email]) ||
+              User.find_by_name(params[:email]) # nameでも探してみる
       @user = @user && @user.authenticate(params[:password])
 
       if @user

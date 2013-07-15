@@ -3,16 +3,31 @@ require 'spec_helper'
 describe V1::SessionsController do
   describe 'POST /v1/signin' do
     context 'when a user successfully sign in' do
-      let(:user) { create(:user)  }
-      before {
-        post :create, {
-          email:    user.email,
-          password: user.password,
+      context 'authenticate by by email' do
+        let(:user) { create(:user)  }
+        before {
+          post :create, {
+            email:    user.email,
+            password: user.password,
+          }
         }
-      }
 
-      it { expect(response.code).to be == '200' }
-      it { expect(assigns(:user).api_token).not_to be == user.api_token }
+        it { expect(response.code).to be == '200' }
+        it { expect(assigns(:user).api_token).not_to be == user.api_token }
+      end
+
+      context 'authenticate by by name' do
+        let(:user) { create(:user)  }
+        before {
+          post :create, {
+            email:    user.name,
+            password: user.password,
+          }
+        }
+
+        it { expect(response.code).to be == '200' }
+        it { expect(assigns(:user).api_token).not_to be == user.api_token }
+      end
     end
 
     context 'when a user can not successfully sign in' do
