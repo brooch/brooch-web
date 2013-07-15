@@ -194,4 +194,78 @@ describe User do
       end
     end
   end
+
+  describe '#create_post_with_metadata' do
+    context 'tag' do
+      context 'create with a not-existing tag' do
+        let(:user)     { create(:user) }
+        let(:new_post) { build(:post)  }
+        let(:new_tag)  { build(:tag)   }
+
+        it {
+          expect {
+            user.create_post_with_metadata(
+              text: new_post.text,
+              tags: [new_tag.name],
+            )
+          }.to change {
+            Tag.count
+          }.by(1)
+        }
+      end
+
+      context 'create with an existing tag' do
+        let(:user)     { create(:user) }
+        let(:new_post) { build(:post)  }
+        let!(:tag)     { create(:tag)  }
+
+        it {
+          expect {
+            user.create_post_with_metadata(
+              text: new_post.text,
+              tags: [tag.name],
+            )
+          }.to change {
+            Tag.count
+          }.by(0)
+        }
+      end
+    end
+
+    context 'author' do
+      context 'create with a not-existing author' do
+        let(:user)       { create(:user)  }
+        let(:new_post)   { build(:post)   }
+        let(:new_author) { build(:author) }
+
+        it {
+          expect {
+            user.create_post_with_metadata(
+              text:   new_post.text,
+              author: new_author.name,
+            )
+          }.to change {
+            Author.count
+          }.by(1)
+        }
+      end
+
+      context 'create with an existing tag' do
+        let(:user)     { create(:user)   }
+        let(:new_post) { build(:post)    }
+        let!(:author)  { create(:author) }
+
+        it {
+          expect {
+            user.create_post_with_metadata(
+              text:   new_post.text,
+              author: author.name,
+            )
+          }.to change {
+            Author.count
+          }.by(0)
+        }
+      end
+    end
+  end
 end

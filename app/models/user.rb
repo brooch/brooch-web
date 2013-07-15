@@ -14,4 +14,27 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates :password, length: { minimum: 6 }
+
+  has_many :posts
+
+  def create_post_with_metadata(params)
+    post = posts.create(text: params[:text])
+
+    if params[:tags]
+      params[:tags].each do |tag_name|
+        if tag = Tag.find_by(name: tag_name)
+          post.taggings.create(tag_id: tag.id)
+        else
+          post.tags.create(name: tag_name)
+        end
+      end
+    end
+
+    if params[:author]
+      author = Author.find_or_create_by(name: params[:author])
+      post.author_id = author.id
+    end
+
+    post
+  end
 end
