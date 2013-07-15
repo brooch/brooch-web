@@ -43,16 +43,7 @@ describe Post do
           expect {
             Post.create_with_metadata(
               text: new_post.text,
-              tag:  new_tag.name,
-            )
-          }.to_not raise_error
-        }
-
-        it {
-          expect {
-            Post.create_with_metadata(
-              text: new_post.text,
-              tag:  new_tag.name,
+              tags: [new_tag.name],
             )
           }.to change {
             Tag.count
@@ -62,25 +53,50 @@ describe Post do
 
       context 'create with an existing tag' do
         let(:new_post) { build(:post) }
-        let!(:new_tag) { create(:tag) }
+        let!(:tag)     { create(:tag) }
 
         it {
           expect {
             Post.create_with_metadata(
               text: new_post.text,
-              tag:  new_tag.name,
-            )
-          }.to_not raise_error
-        }
-
-        it {
-          expect {
-            Post.create_with_metadata(
-              text: new_post.text,
-              tag:  new_tag.name,
+              tags: [tag.name],
             )
           }.to change {
             Tag.count
+          }.by(0)
+        }
+      end
+    end
+
+    context 'author' do
+      context 'create with a not-existing author' do
+        let(:new_post)   { build(:post)   }
+        let(:new_author) { build(:author) }
+
+        it {
+          expect {
+            Post.create_with_metadata(
+              text:   new_post.text,
+              author: new_author.name,
+            )
+          }.to change {
+            Author.count
+          }.by(1)
+        }
+      end
+
+      context 'create with an existing tag' do
+        let(:new_post) { build(:post)    }
+        let!(:author)  { create(:author) }
+
+        it {
+          expect {
+            Post.create_with_metadata(
+              text:   new_post.text,
+              author: author.name,
+            )
+          }.to change {
+            Author.count
           }.by(0)
         }
       end

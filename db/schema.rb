@@ -11,13 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130715133739) do
+ActiveRecord::Schema.define(version: 20130715144536) do
+
+  create_table "authors", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authors", ["name"], name: "index_authors_on_name", unique: true, using: :btree
 
   create_table "posts", force: true do |t|
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "author_id"
   end
+
+  add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer "post_id"
@@ -29,6 +40,8 @@ ActiveRecord::Schema.define(version: 20130715133739) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
