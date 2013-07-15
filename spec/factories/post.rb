@@ -3,10 +3,3 @@ FactoryGirl.define do
     sequence(:text) { |n| "text #{n}" }
   end
 end
-
-
-
-
-
-
-
