@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   validates :name, presence: true,
-                   length: { maximum: 50 },
+                   length:     { maximum: 50 },
+                   format:     { with: /\A[0-9a-z_]+\z/i },
                    uniqueness: { case_sensitive: false }
 
   before_save { self.email = email.downcase }

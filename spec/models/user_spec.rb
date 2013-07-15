@@ -41,6 +41,23 @@ describe User do
 
           it { should be_invalid }
         end
+
+        context 'duplicated (case)' do
+          subject {
+            user = create(:user)
+            build(:user, name: user.name.upcase)
+          }
+
+          it { should be_invalid }
+        end
+
+        context 'invalid string' do
+          subject {
+            build(:user, name: 'foo bar')
+          }
+
+          it { should be_invalid }
+        end
       end
 
       context 'valid' do
