@@ -17,24 +17,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  def create_post_with_metadata(params)
-    post = posts.create(text: params[:text])
-
-    if params[:tags]
-      params[:tags].each do |tag_name|
-        if tag = Tag.find_by(name: tag_name)
-          post.taggings.create(tag_id: tag.id)
-        else
-          post.tags.create(name: tag_name)
-        end
-      end
-    end
-
-    if params[:author]
-      author = Author.find_or_create_by(name: params[:author])
-      post.author_id = author.id
-    end
-
-    post
+  def build_post_with_metadata(params)
+    PostWithMetadata.new(params.merge(user: self))
   end
 end

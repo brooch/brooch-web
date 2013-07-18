@@ -20,6 +20,12 @@ class PostWithMetadata
     end
   end
 
+  def self.create(args)
+    post = new(args)
+    post.save
+    post
+  end
+
   def save
     result = false
 
