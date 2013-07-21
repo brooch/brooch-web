@@ -6,10 +6,9 @@ describe V1::UsersController do
       before {
         user = build(:user)
         post :create, {
-          name:                  user.name,
-          email:                 user.email,
-          password:              user.password,
-          password_confirmation: user.password_confirmation,
+          name:     user.name,
+          email:    user.email,
+          password: user.password,
         }
       }
 
@@ -20,10 +19,9 @@ describe V1::UsersController do
       before {
         user = build(:user)
         post :create, {
-          name:                  user.name,
-          email:                 user.email,
-          password:              user.password,
-          password_confirmation: 'no same password',
+          name:     user.name,
+          email:    'invalid string',
+          password: user.password,
         }
       }
 

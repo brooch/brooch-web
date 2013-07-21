@@ -6,12 +6,11 @@ describe User do
       build(:user)
     }
 
-    it { should respond_to :name                  }
-    it { should respond_to :email                 }
-    it { should respond_to :password_digest       }
-    it { should respond_to :api_token             }
-    it { should respond_to :password              }
-    it { should respond_to :password_confirmation }
+    it { should respond_to :name            }
+    it { should respond_to :email           }
+    it { should respond_to :password_digest }
+    it { should respond_to :api_token       }
+    it { should respond_to :password        }
   end
 
   describe 'name' do
@@ -134,17 +133,9 @@ describe User do
   describe 'password' do
     context 'validation' do
       context 'when invalid' do
-        context 'not same' do
-          subject {
-            build(:user, password_confirmation: 'not same password')
-          }
-
-          it { should be_invalid }
-        end
-
         context 'too short' do
           subject {
-            build(:user, password: 'foo', password_confirmation: 'foo')
+            build(:user, password: 'foo')
           }
 
           it { should be_invalid }
@@ -152,9 +143,9 @@ describe User do
       end
 
       context 'valid' do
-        context 'same password' do
+        context 'valid password' do
           subject {
-            build(:user, password: 'password', password_confirmation: 'password')
+            build(:user, password: 'password')
           }
 
           it { should be_valid }

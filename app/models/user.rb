@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
 
+  # We won't confirm password
+  before_validation { self.password_confirmation = password }
+
   has_many :posts
 
   def build_post_with_metadata(params)
