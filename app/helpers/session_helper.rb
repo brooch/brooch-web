@@ -17,11 +17,3 @@ module SessionHelper
     @current_user ||= User.find_by_api_token(params[:api_token])
   end
 end
-
-
-
-
-
-
-
-
