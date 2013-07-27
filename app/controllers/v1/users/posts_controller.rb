@@ -6,6 +6,8 @@ module V1
           params[:offset] || 0
         ).limit(
           params[:limit]  || 10
+        ).order(
+          'created_at DESC'
         ).to_json
       end
 
