@@ -30,11 +30,11 @@ class PostWithMetadata
     result = false
 
     if valid?
-      @post.save
       @taggings.each { |t| t.save }
       @tags.each { |t| t.save }
       @author.save
       @post.author_id = @author.id
+      @post.save
       result = true
     end
 

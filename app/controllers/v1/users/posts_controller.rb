@@ -8,7 +8,7 @@ module V1
           params[:limit]  || 10
         ).order(
           'created_at DESC'
-        ).to_json
+        ).to_json(include: [:author, :tags])
       end
 
       def create
