@@ -1,6 +1,9 @@
 class PostWithMetadata
   def initialize(params)
-    @post     = params[:user].posts.build(text: params[:text])
+    @post     = params[:user].posts.build(
+      text:     params[:text],
+      image_id: params[:image_id],
+    )
     @taggings = []
     @tags     = []
     @author   = nil

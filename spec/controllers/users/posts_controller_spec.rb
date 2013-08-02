@@ -10,10 +10,11 @@ describe V1::Users::PostsController do
       new_author = build(:author)
 
       PostWithMetadata.create(
-        user:   user,
-        text:   new_post.text,
-        tags:   [new_tag.name],
-        author: new_author.name,
+        user:     user,
+        text:     new_post.text,
+        image_id: new_post.image_id,
+        tags:     [new_tag.name],
+        author:   new_author.name,
       )
 
       get :index, {
@@ -41,6 +42,7 @@ describe V1::Users::PostsController do
         post :create, {
           user_id:   user.id,
           text:      new_post.text,
+          image_id:  new_post.image_id,
           tags:      [new_tag.name],
           author:    new_author.name,
           api_token: user.api_token,
@@ -61,6 +63,7 @@ describe V1::Users::PostsController do
         post :create, {
           user_id:   user.id,
           text:      new_post.text,
+          image_id:  new_post.image_id,
           tags:      [new_tag.name],
           author:    new_author.name,
           api_token: user.api_token,

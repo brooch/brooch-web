@@ -13,9 +13,10 @@ module V1
 
       def create
         @post_with_metadata = current_user.build_post_with_metadata(
-          text:   params[:text],
-          tags:   params[:tags],
-          author: params[:author],
+          text:     params[:text],
+          tags:     params[:tags],
+          author:   params[:author],
+          image_id: params[:image_id],
         )
 
         if @post_with_metadata.save

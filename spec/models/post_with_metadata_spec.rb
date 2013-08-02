@@ -12,9 +12,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user: user,
-                text: new_post.text,
-                tags: [new_tag.name],
+                user:     user,
+                text:     new_post.text,
+                image_id: new_post.image_id,
+                tags:     [new_tag.name],
               )
             }
 
@@ -31,9 +32,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user: user,
-                text: new_post.text,
-                tags: [new_tag.name],
+                user:     user,
+                text:     new_post.text,
+                image_id: new_post.image_id,
+                tags:     [new_tag.name],
               )
             }
 
@@ -52,9 +54,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user: user,
-                text: new_post.text,
-                tags: [new_tag.name],
+                user:     user,
+                text:     new_post.text,
+                image_id: new_post.image_id,
+                tags:     [new_tag.name],
               )
             }
 
@@ -71,9 +74,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user: user,
-                text: new_post.text,
-                tags: [new_tag.name],
+                user:     user,
+                image_id: new_post.image_id,
+                text:     new_post.text,
+                tags:     [new_tag.name],
               )
             }
 
@@ -92,9 +96,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user:   user,
-                text:   new_post.text,
-                author: new_author.name,
+                user:     user,
+                text:     new_post.text,
+                image_id: new_post.image_id,
+                author:   new_author.name,
               )
             }
 
@@ -111,9 +116,10 @@ describe PostWithMetadata do
 
             subject {
               PostWithMetadata.new(
-                user:   user,
-                text:   new_post.text,
-                author: new_author.name,
+                user:     user,
+                text:     new_post.text,
+                image_id: new_post.image_id,
+                author:   new_author.name,
               )
             }
 
