@@ -1,9 +1,13 @@
 class PostWithMetadata
   def initialize(params)
-    @post     = params[:user].posts.build(
-      text:     params[:text],
-      image_id: params[:image_id],
-    )
+    build_post(params)
+  end
+
+  def build_post(params)
+    @post          = params[:post] || params[:user].posts.build
+    @post.text     = params[:text]
+    @post.image_id = params[:image_id]
+
     @taggings = []
     @tags     = []
     @author   = nil
@@ -23,10 +27,32 @@ class PostWithMetadata
     end
   end
 
+  def self.find(id)
+    post = Post.where(id: id).includes(:author, :tags).first
+    params = {
+      post:     post,
+      user:     post.user,
+      text:     post.text,
+      image_id: post.image_id,
+      tags:     post.tags,
+      author:   post.author,
+    }
+
+    self.new(params)
+  end
+
   def self.create(args)
     post = new(args)
     post.save
     post
+  end
+
+  def update(args)
+    args[:user] = @post.user
+    args[:post] = @post
+
+    self.build_post(args)
+    self.save
   end
 
   def save

@@ -27,6 +27,22 @@ module V1
           render json: @post_with_metadata.errors.to_json, status: 400
         end
       end
+
+      def update
+        @post_with_metadata = PostWithMetadata.find(params[:id])
+
+        if @post_with_metadata.update(
+          text:     params[:text],
+          tags:     params[:tags],
+          author:   params[:author],
+          image_id: params[:image_id],
+        )
+          render json: @post_with_metadata.to_json
+        else
+          p @post_with_metadata.errors
+          render json: @post_with_metadata.errors.to_json, status: 400
+        end
+      end
     end
   end
 end
