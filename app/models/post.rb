@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
                    length:   { maximum: 255 }
 
   validates :image_id, presence: true,
-                       inclusion: 0..4
+                       inclusion: 0..5
 
   belongs_to :user
   belongs_to :author
