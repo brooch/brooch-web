@@ -5,7 +5,7 @@ Brooch::Application.routes.draw do
     post '/signout', to: 'v1/sessions#destroy'
 
     resources :users, controller: 'v1/users', only: [:create] do
-      resources :posts, controller: 'v1/users/posts', only: [:index, :create, :update]
+      resources :posts, controller: 'v1/users/posts', only: [:index, :create, :update, :destroy]
     end
   end
 end

@@ -39,7 +39,16 @@ module V1
         )
           render json: @post_with_metadata.to_json
         else
-          p @post_with_metadata.errors
+          render json: @post_with_metadata.errors.to_json, status: 400
+        end
+      end
+
+      def destroy
+        @post_with_metadata = PostWithMetadata.find(params[:id])
+
+        if @post_with_metadata.destroy
+          render json: @post_with_metadata.to_json
+        else
           render json: @post_with_metadata.errors.to_json, status: 400
         end
       end

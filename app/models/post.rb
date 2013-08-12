@@ -8,5 +8,5 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :author
   has_many   :taggings, dependent: :destroy
-  has_many   :tags, through: :taggings
+  has_many   :tags,     through: :taggings
 end

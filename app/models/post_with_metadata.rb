@@ -55,6 +55,10 @@ class PostWithMetadata
     self.save
   end
 
+  def destroy
+    @post.destroy
+  end
+
   def save
     result = false
 

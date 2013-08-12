@@ -30,7 +30,7 @@ describe V1::Users::PostsController do
     }
   end
 
-  describe 'POST /v1/users/posts' do
+  describe 'POST /v1/users/:id/posts' do
     context 'when a post is successfully created' do
       before {
         user       = create(:user)
@@ -38,7 +38,6 @@ describe V1::Users::PostsController do
         new_tag    = build(:tag)
         new_author = build(:author)
 
-        # post "/users/#{user.id}/posts", {
         post :create, {
           user_id:   user.id,
           text:      new_post.text,
@@ -59,7 +58,6 @@ describe V1::Users::PostsController do
         new_tag    = build(:tag)
         new_author = build(:author)
 
-        # post "/users/#{user.id}/posts", {
         post :create, {
           user_id:   user.id,
           text:      new_post.text,
@@ -72,6 +70,23 @@ describe V1::Users::PostsController do
 
       it { expect(response.code).to be == '400' }
       it { expect(response.body).to be =~ /can't be blank/ }
+    end
+  end
+
+  describe 'DELETE /v1/users/:id/posts/:id' do
+    context 'when a post is successfully deleted' do
+      before {
+        user = create(:user)
+        post = user.posts.create
+
+        delete :destroy, {
+          user_id:   user.id,
+          post_id:   post.id,
+          api_token: user.api_token,
+        }
+      }
+
+      it { expect(response.code).to be == '200' }
     end
   end
 end
