@@ -54,6 +54,19 @@ describe V1::SessionsController do
 
         it { expect(response.code).to be == '400' }
       end
+
+      context 'already logged in' do
+        let(:user) { create(:user) }
+        before {
+          post :create, {
+            email:     user.email,
+            password:  user.password,
+            api_token: user.api_token,
+          }
+        }
+
+        it { expect(response.code).to be == '400' }
+      end
     end
   end
 

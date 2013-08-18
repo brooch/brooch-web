@@ -2,6 +2,8 @@
 
 module V1
   class UsersController < ApplicationController
+    before_action :require_guest, only: [:create]
+
     def create
       @user = User.new(
         name:     params[:name],

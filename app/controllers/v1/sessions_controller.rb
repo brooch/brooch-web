@@ -2,6 +2,9 @@
 
 module V1
   class SessionsController < ApplicationController
+    before_action :require_guest, only: [:create]
+    before_action :require_user,  only: [:destroy]
+
     def create
       @user = User.find_by_email(params[:email]) ||
               User.find_by_name(params[:email]) # nameでも探してみる
@@ -21,15 +24,8 @@ module V1
     def destroy
       @user = current_user
 
-      if @user
-        sign_out(@user)
-        render json: @user.to_json(except: [:password_digest])
-      else
-        # TODO: i18n
-        render json: {
-          sign_in_error: ['APIトークンが正しくありません']
-        }, status: 400
-      end
+      sign_out(@user)
+      render json: @user.to_json(except: [:password_digest])
     end
   end
 end
