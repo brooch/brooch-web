@@ -27,6 +27,10 @@ class PostWithMetadata
     end
   end
 
+  def user
+    @post.user
+  end
+
   def self.find(id)
     post = Post.where(id: id).includes(:author, :tags).first
     params = {
